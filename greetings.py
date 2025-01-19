@@ -1,9 +1,9 @@
-info = 'Турбонапоминалка'
+info = 'Турбонапоминалка содержит следующие поля для заполнения:'
 username = 'Имя'
 title = 'Заголовок заметки'
 content = 'Описание заметки'
 status = 'Статус заметки'
 created_date = 'Дата заметки в формате (день.месяц.год),например: 10.11.2024'
 issue_date = 'Дедлайн в формате (день.месяц.год),например: 18.01.2025'
-print(username, title, content, status, created_date, issue_date, sep='\n')
-
+info2 = 'Пользуйтесь с удовольствием'
+print(info, username, title, content, status, created_date, issue_date, info2, sep='\n')
