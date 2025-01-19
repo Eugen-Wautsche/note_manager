@@ -25,5 +25,6 @@ while True:
     except ValueError:
         print("Дата введена не корректно")
 #конец циклов проверки формата даты
-print(username ,title, content, status,created_date, issue_date, sep='\n')
-
+print(username ,title, content, status, sep='\n')
+print('Дата заметки:', created_date[:5], end='\n')
+print('Дата дедлайна:', issue_date[:5], end='\n')
