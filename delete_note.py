@@ -53,14 +53,26 @@ def create_note():
         return note
 
 
-# функция удаления заметки по ID
-def delete_note(note_id):
-    for note in notes:
-        if note['id'] == note_id:
+# функция удаления заметки по имени пользователя
+def delete_note_by_name(name):
+    deleted_notes = [note for note in notes if note['name'] == name]
+    if deleted_notes:
+        for note in deleted_notes:
             notes.remove(note)
-            print(f"Заметка с ID {note_id} удалена.")
-            return
-    print("Заметка с таким ID не найдена.")
+            print(f"Заметка с именем {note['name']} удалена.")
+    else:
+        print("Заметки с таким именем пользователя не найдены.")
+
+
+# функция удаления заметки по заголовку
+def delete_note_by_title(title):
+    deleted_notes = [note for note in notes if note['title'] == title]
+    if deleted_notes:
+        for note in deleted_notes:
+            notes.remove(note)
+            print(f"Заметка с таким заголовком {note['title']} удалена.")
+    else:
+        print("Заметки с таким заголовком не найдены.")
 
 
 # цикл для создания и удаления заметок
@@ -77,7 +89,8 @@ while True:
         continue
     else:
         print("Пожалуйста, введите 'да' или 'нет'.")
-print("Список заметок:")
+
+    print("Список заметок:")
 for note in notes:
     print(f"ID заметки: {note['id']}")
     print(f"Имя пользователя: {note['name']}")
@@ -91,26 +104,29 @@ for note in notes:
 while True:
     delete_note = input("Хотите удалить заметку? (да/нет): ")
     if delete_note.lower() == "да":
-        note_id = int(input("Введите ID заметки, которую хотите удалить: "))
+        delete_option = input("Хотите удалить заметку по имени пользователя или по заголовку? (имя/заголовок): ")
+        if delete_option.lower() == "имя":
+            name = input("Введите имя пользователя, заметки которого нужно удалить: ")
+            delete_note_by_name(name)
+        elif delete_option.lower() == "заголовок":
+            title = input("Введите заголовок заметки, которую нужно удалить: ")
+            delete_note_by_title(title)
+        else:
+            print("Пожалуйста, введите 'имя' или 'заголовок'.")
+        print("Список заметок после удаления:")
         for note in notes:
-            if note['id'] == note_id:
-                notes.remove(note)
-                print(f"Заметка с ID {note_id} удалена.")
-        print("Заметка с таким ID не найдена.")
+            print(f"ID заметки: {note['id']}")
+            print(f"Имя пользователя: {note['name']}")
+            print(f"Заголовок заметки: {note['title']}")
+            print(f"Описание заметки: {note['description']}")
+            print(f"Статус заметки: {note['status']}")
+            print(f"Дата создания: {note['creation_date']}")
+            print(f"Дедлайн: {note['deadline']}")
+            print()
     elif delete_note.lower() == "нет":
-        print("Заметка не удалена.")
+        print("Выход из режима удаления заметок.")
         break
     elif delete_note == "":
         continue
     else:
         print("Пожалуйста, введите 'да' или 'нет'.")
-print("Список заметок после удаления:")
-for note in notes:
-    print(f"ID заметки: {note['id']}")
-    print(f"Имя пользователя: {note['name']}")
-    print(f"Заголовок заметки: {note['title']}")
-    print(f"Описание заметки: {note['description']}")
-    print(f"Статус заметки: {note['status']}")
-    print(f"Дата создания: {note['creation_date']}")
-    print(f"Дедлайн: {note['deadline']}")
-    print()
