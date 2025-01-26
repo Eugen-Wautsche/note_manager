@@ -1,6 +1,8 @@
 notes = []
 # импорт библиотеки datetime
 import datetime
+
+
 # функция создания заметки + проверка формата даты из final
 def create_note():
     while True:
@@ -49,6 +51,8 @@ def create_note():
             "deadline": deadline.strftime('%d.%m.%Y')
         }
         return note
+
+
 # функция удаления заметки по ID
 def delete_note(note_id):
     for note in notes:
@@ -57,6 +61,8 @@ def delete_note(note_id):
             print(f"Заметка с ID {note_id} удалена.")
             return
     print("Заметка с таким ID не найдена.")
+
+
 while True:
     print("Добро пожаловать в 'Менеджер заметок'! Вы можете добавить новую заметку.")
     add_note = input("Хотите добавить заметку? (да/нет): ")
