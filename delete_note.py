@@ -3,6 +3,20 @@ notes = []
 import datetime
 
 
+# функция удаления заметки по имени пользователя или заголовку без учёта регистра
+def delete_note():
+    while True:
+        name = input("Введите имя пользователя или заголовок заметки для удаления: ")
+        if name == "":
+            continue
+        for note in notes:
+            if note['name'].lower() == name.lower() or note['title'].lower() == name.lower():
+                notes.remove(note)
+                print("Заметка успешно удалена.")
+                return
+        print("Заметка не найдена. Пожалуйста, введите имя пользователя или заголовок заметки.")
+
+
 # функция создания заметки + проверка формата даты из final
 def create_note():
     while True:
@@ -42,7 +56,7 @@ def create_note():
             except ValueError:
                 print("Дата введена не корректно")
         note = {
-            "id": len(notes) + 1,
+
             "name": name,
             "title": title,
             "description": description,
@@ -53,29 +67,7 @@ def create_note():
         return note
 
 
-# функция удаления заметки по имени пользователя
-def delete_note_by_name(name):
-    deleted_notes = [note for note in notes if note['name'] == name]
-    if deleted_notes:
-        for note in deleted_notes:
-            notes.remove(note)
-            print(f"Заметка с именем {note['name']} удалена.")
-    else:
-        print("Заметки с таким именем пользователя не найдены.")
-
-
-# функция удаления заметки по заголовку
-def delete_note_by_title(title):
-    deleted_notes = [note for note in notes if note['title'] == title]
-    if deleted_notes:
-        for note in deleted_notes:
-            notes.remove(note)
-            print(f"Заметка с таким заголовком {note['title']} удалена.")
-    else:
-        print("Заметки с таким заголовком не найдены.")
-
-
-# цикл для создания и удаления заметок
+# цикл для создания заметок
 while True:
     print("Добро пожаловать в 'Менеджер заметок'! Вы можете добавить новую заметку.")
     add_note = input("Хотите добавить заметку? (да/нет): ")
@@ -89,10 +81,8 @@ while True:
         continue
     else:
         print("Пожалуйста, введите 'да' или 'нет'.")
-
-    print("Список заметок:")
+print("Список заметок:")
 for note in notes:
-    print(f"ID заметки: {note['id']}")
     print(f"Имя пользователя: {note['name']}")
     print(f"Заголовок заметки: {note['title']}")
     print(f"Описание заметки: {note['description']}")
@@ -100,33 +90,26 @@ for note in notes:
     print(f"Дата создания: {note['creation_date']}")
     print(f"Дедлайн: {note['deadline']}")
     print()
-# цикл удаления
+
+# цикл для удаления заметок
 while True:
-    delete_note = input("Хотите удалить заметку? (да/нет): ")
-    if delete_note.lower() == "да":
-        delete_option = input("Хотите удалить заметку по имени пользователя или по заголовку? (имя/заголовок): ")
-        if delete_option.lower() == "имя":
-            name = input("Введите имя пользователя, заметки которого нужно удалить: ")
-            delete_note_by_name(name)
-        elif delete_option.lower() == "заголовок":
-            title = input("Введите заголовок заметки, которую нужно удалить: ")
-            delete_note_by_title(title)
-        else:
-            print("Пожалуйста, введите 'имя' или 'заголовок'.")
-        print("Список заметок после удаления:")
-        for note in notes:
-            print(f"ID заметки: {note['id']}")
-            print(f"Имя пользователя: {note['name']}")
-            print(f"Заголовок заметки: {note['title']}")
-            print(f"Описание заметки: {note['description']}")
-            print(f"Статус заметки: {note['status']}")
-            print(f"Дата создания: {note['creation_date']}")
-            print(f"Дедлайн: {note['deadline']}")
-            print()
-    elif delete_note.lower() == "нет":
-        print("Выход из режима удаления заметок.")
+    print("Вы можете удалить заметку.")
+    delete_note_option = input("Хотите удалить заметку? (да/нет): ")
+    if delete_note_option.lower() == "да":
+        delete_note()
+    elif delete_note_option.lower() == "нет":
+        print("Заметка не удалена.")
         break
-    elif delete_note == "":
+    elif delete_note_option == "":
         continue
     else:
         print("Пожалуйста, введите 'да' или 'нет'.")
+print("Список заметок после удаления:")
+for note in notes:
+    print(f"Имя пользователя: {note['name']}")
+    print(f"Заголовок заметки: {note['title']}")
+    print(f"Описание заметки: {note['description']}")
+    print(f"Статус заметки: {note['status']}")
+    print(f"Дата создания: {note['creation_date']}")
+    print(f"Дедлайн: {note['deadline']}")
+    print()
