@@ -27,14 +27,13 @@ def create_note():
                 break
             else:
                 print("Статус введен некорректно. Пожалуйста, введите 'новая', 'в процессе' или 'выполнено'.")
-        # убираем ручной ввод даты (дата создания заметки = текущая дата)
         while True:
-            deadline = input('Дедлайн в формате (день.месяц.год),например 18.01.2025: ')
+            issue_date = input('Дата выпуска в формате (день.месяц.год),например 18.01.2025: ')
             try:
-                deadline = datetime.datetime.strptime(deadline, '%d.%m.%Y')
+                issue_date = datetime.datetime.strptime(issue_date, '%d.%m.%Y')
                 # Думал добавить сравнение текущей даты и дедлайна, чтобы дедлайн не был раньше текущей даты,
                 # но есть статус 'выполнено'
-                # if deadline < datetime.datetime.now():
+                # if issue_date < datetime.datetime.now():
                 # print("Дата дедлайна не может быть раньше текущей даты. Пожалуйста, введите дату заново.")
                 # continue
                 print('Введена корректная дата')
@@ -49,7 +48,7 @@ def create_note():
             # меняем в словаре
             # дата создания заметки = текущая дата в том же формате, без времени
             "created_date": datetime.datetime.now().strftime('%d.%m.%Y'),
-            "deadline": deadline.strftime('%d.%m.%Y')
+            "issue_date": issue_date.strftime('%d.%m.%Y')
         }
         return note
 
@@ -74,7 +73,7 @@ for note in notes:
     print(f"Заголовок заметки: {note['title']}")
     print(f"Описание заметки: {note['description']}")
     print(f"Статус заметки: {note['status']}")
-    # выводим дату создания заметки
+    # выводим дату создания заметки = текущую дату
     print(f"Дата создания заметки: {note['created_date']}")
-    print(f"Дедлайн: {note['deadline']}")
+    print(f"Дата выпуска: {note['issue_date']}")
     print()
